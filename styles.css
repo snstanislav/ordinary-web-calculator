@@ -1,0 +1,68 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: 'Calibri', 'Verdana', 'Arial', sans-serif;
+}
+
+#mainContainer {
+  margin: 15px;
+  border: 15px solid #58c;
+  padding: 14px;
+  box-sizing: border-box;
+  width: 380px;
+  border-radius: 3px;
+  box-shadow: 3px 3px 10px #555;
+}
+
+#calcScreen {
+  margin: 0.3em 0.1em;
+  border: 5px solid #666;
+  padding: 0.4em 0.3em;
+  height: 1.5em;
+  font-weight: 400;
+  font-size: 1.9em;
+  text-align: right;
+  text-shadow: 1px 1px 3px #999;
+  color: #555;
+  background: linear-gradient(to bottom right, #ccc, #fff);
+  border-radius: 3px;
+}
+
+.buttonsRow {
+  display: flex;
+}
+
+.buttonsRow > div {
+  margin: 0.3em 0.2em;
+  border: 2px solid #888;
+  padding: 0.4em;
+  display: inline;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  color: #555;
+  background: #c3eaff;
+  box-sizing: border-box;
+  width: 25%;
+  height: 2.5em;
+  box-shadow: 2px 2px 4px #777;
+  border-radius: 10px;
+}
+.buttonsRow > div:active {
+  position: relative;
+  top: 3px;
+  left: 1px;
+  height: 2.4em;
+  box-shadow: -1px -1px 2px #777;
+  box-shadow: 1px 1px 2px #777;
+}
+  
+.buttonsRow .controls {
+  color: #fff;
+  background: #58c;
+  border-color: #666;
+}
+
+#backspace {
+  font-weight: normal;
+}
