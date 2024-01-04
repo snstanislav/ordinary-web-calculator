@@ -1,0 +1,75 @@
+$defFont: 'Calibri', 'Verdana', 'Arial', sans-serif;
+$shadowColor: #777;
+$textShadowColor: #999;
+$boxSizing: border-box;
+$digitsBgColor: #c3eaff;
+$regularTextColor: #555;
+$controllsBgColor: #58c;
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: $defFont;
+}
+
+#mainContainer {
+  margin: 15px;
+  border: 15px solid $controllsBgColor;
+  padding: 14px;
+  box-sizing: $boxSizing;
+  width: 380px;
+  border-radius: 3px;
+  box-shadow: 3px 3px 10px $shadowColor;
+}
+
+#calcScreen {
+  margin: 0.3em 0.1em;
+  border: 5px solid #666;
+  padding: 0.4em 0.3em;
+  height: 1.5em;
+  font-weight: 400;
+  font-size: 1.9em;
+  text-align: right;
+  text-shadow: 1px 1px 3px $textShadowColor;
+  color: $regularTextColor;
+  background: linear-gradient(to bottom right, #ccc, #fff);
+  border-radius: 3px;
+}
+
+.buttonsRow {
+  display: flex; 
+  > div {
+    margin: 0.3em 0.2em;
+    border: 2px solid #888;
+    padding: 0.4em;
+    display: inline;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    color: $regularTextColor;
+    background: $digitsBgColor;
+    box-sizing: $boxSizing;
+    width: 25%;
+    height: 2.5em;
+    box-shadow: 2px 2px 4px $shadowColor;
+    border-radius: 10px;
+
+    &:active {
+      position: relative;
+      top: 3px;
+      left: 1px;
+      height: 2.4em;
+      box-shadow: -1px -1px 2px $shadowColor;
+      box-shadow: 1px 1px 2px $shadowColor;
+    }
+  }
+  .controls {
+    color: #fff;
+    background: $controllsBgColor;
+    border-color: #666;
+  }
+}
+
+#backspace {
+  font-weight: normal;
+}

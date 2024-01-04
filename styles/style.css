@@ -1,7 +1,7 @@
-*{
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Calibri', 'Verdana', 'Arial', sans-serif;
+  font-family: "Calibri", "Verdana", "Arial", sans-serif;
 }
 
 #mainContainer {
@@ -11,7 +11,7 @@
   box-sizing: border-box;
   width: 380px;
   border-radius: 3px;
-  box-shadow: 3px 3px 10px #555;
+  box-shadow: 3px 3px 10px #777;
 }
 
 #calcScreen {
@@ -31,7 +31,6 @@
 .buttonsRow {
   display: flex;
 }
-
 .buttonsRow > div {
   margin: 0.3em 0.2em;
   border: 2px solid #888;
@@ -56,7 +55,6 @@
   box-shadow: -1px -1px 2px #777;
   box-shadow: 1px 1px 2px #777;
 }
-  
 .buttonsRow .controls {
   color: #fff;
   background: #58c;
@@ -66,3 +64,5 @@
 #backspace {
   font-weight: normal;
 }
+
+/*# sourceMappingURL=style.css.map */
