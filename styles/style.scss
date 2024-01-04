@@ -1,25 +1,25 @@
-$defFont: 'Calibri', 'Verdana', 'Arial', sans-serif;
-$shadowColor: #777;
-$textShadowColor: #999;
-$boxSizing: border-box;
-$digitsBgColor: #c3eaff;
-$regularTextColor: #555;
-$controllsBgColor: #58c;
+$def-font: 'Calibri', 'Verdana', 'Tahoma', 'Arial', sans-serif;
+$shadow-color: #777;
+$text-shadow-color: #999;
+$box-sizing: border-box;
+$digits-bg-color: #c3eaff;
+$regular-text-color: #555;
+$controlls-bg-color: #58c;
 
 * {
   margin: 0;
   padding: 0;
-  font-family: $defFont;
+  font-family: $def-font;
 }
 
 #mainContainer {
   margin: 15px;
-  border: 15px solid $controllsBgColor;
+  border: 15px solid $controlls-bg-color;
   padding: 14px;
-  box-sizing: $boxSizing;
+  box-sizing: $box-sizing;
   width: 380px;
   border-radius: 3px;
-  box-shadow: 3px 3px 10px $shadowColor;
+  box-shadow: 3px 3px 10px $shadow-color;
 }
 
 #calcScreen {
@@ -30,8 +30,8 @@ $controllsBgColor: #58c;
   font-weight: 400;
   font-size: 1.9em;
   text-align: right;
-  text-shadow: 1px 1px 3px $textShadowColor;
-  color: $regularTextColor;
+  text-shadow: 1px 1px 3px $text-shadow-color;
+  color: $regular-text-color;
   background: linear-gradient(to bottom right, #ccc, #fff);
   border-radius: 3px;
 }
@@ -46,12 +46,12 @@ $controllsBgColor: #58c;
     font-size: 1.5em;
     font-weight: bold;
     text-align: center;
-    color: $regularTextColor;
-    background: $digitsBgColor;
-    box-sizing: $boxSizing;
+    color: $regular-text-color;
+    background: $digits-bg-color;
+    box-sizing: $box-sizing;
     width: 25%;
     height: 2.5em;
-    box-shadow: 2px 2px 4px $shadowColor;
+    box-shadow: 2px 2px 4px $shadow-color;
     border-radius: 10px;
 
     &:active {
@@ -59,13 +59,13 @@ $controllsBgColor: #58c;
       top: 3px;
       left: 1px;
       height: 2.4em;
-      box-shadow: -1px -1px 2px $shadowColor;
-      box-shadow: 1px 1px 2px $shadowColor;
+      box-shadow: -1px -1px 2px $shadow-color;
+      box-shadow: 1px 1px 2px $shadow-color;
     }
   }
   .controls {
     color: #fff;
-    background: $controllsBgColor;
+    background: $controlls-bg-color;
     border-color: #666;
   }
 }
