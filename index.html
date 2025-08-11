@@ -4,44 +4,43 @@
   <title>Ordinary Web Calculator</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="styles/style.css">
-  <script src="scenario.js"></script>
+  <script src="index.js"></script>
 </head>
-<body onload="init(document)">
+<body>
   <div id="mainWrapper">
     <div id="mainContainer">
       <p id="calcScreen">0</p>
       <div class="buttonsRow">
-        <div class="controls" id="reset">AC</div>
-        <div class="controls" id="sqroot">&#8730;</div>
-        <div class="controls" id="percent">%</div>
-        <div class="controls" id="divide">&#247;</div>
+        <div class="controls" id="reset" data-info="reset">AC</div>
+        <div class="controls" id="sqroot" data-info="sqrt">&#8730;</div>
+        <div class="controls" id="percent"data-info="%">%</div>
+        <div class="controls" id="divide" data-info="/">&#247;</div>
       </div>
       <div class="buttonsRow">
-        <div class="digit">7</div>
-        <div class="digit">8</div>
-        <div class="digit">9</div>
-        <div class="controls" id="multiple">&#215;</div>
+        <div class="digit" data-info="7">7</div>
+        <div class="digit" data-info="8">8</div>
+        <div class="digit" data-info="9">9</div>
+        <div class="controls" id="multiple" data-info="*">&#215;</div>
       </div>
       <div class="buttonsRow">
-        <div class="digit">4</div>
-        <div class="digit">5</div>
-        <div class="digit">6</div>
-        <div class="controls" id="subtract">-</div>
+        <div class="digit" data-info="4">4</div>
+        <div class="digit" data-info="5">5</div>
+        <div class="digit" data-info="6">6</div>
+        <div class="controls" id="subtract" data-info="-">-</div>
       </div>
       <div class="buttonsRow">
-        <div class="digit">1</div>
-        <div class="digit">2</div>
-        <div class="digit">3</div>
-        <div class="controls" id="add">+</div>
+        <div class="digit" data-info="1">1</div>
+        <div class="digit" data-info="2">2</div>
+        <div class="digit" data-info="3">3</div>
+        <div class="controls" id="add" data-info="+">+</div>
       </div>
       <div class="buttonsRow">
-        <div class="digit">0</div>
-        <div id="flpoint">.</div>
-        <div id="backspace">&#9003;</div>
-        <div class="controls" id="equals">=</div>
+        <div class="digit" data-info="0">0</div>
+        <div id="flpoint" data-info=".">.</div>
+        <div id="backspace" data-info="backsp">&#9003;</div>
+        <div class="controls" id="equals" data-info="=">=</div>
       </div>
     </div>
-    <p></p>
   </div>
 </body>
 </html>
