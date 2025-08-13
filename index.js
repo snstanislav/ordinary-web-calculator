@@ -1,23 +1,48 @@
 "strict mode";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const screen = document.getElementById("calcScreen");
-    if (!screen) {
-        console.error("screen element not found!");
+    const currentScreen = document.getElementById("output-screen");
+    const operationScreen = document.getElementById("output-operation");
+
+    if (!currentScreen || !operationScreen) {
+        console.error("Output element not found!");
         return;
     }
 
-    const buttonsCollection = document.querySelectorAll(".buttonsRow > div");
+    const buttonsCollection = document.querySelectorAll(".btn-key");
     for (let elem of buttonsCollection) {
         elem.addEventListener("click", handleInput);
     }
 
     function setScreenValue(value) {
-        screen.innerText = value;
+        if (value.toString().length <= 13) {
+            currentScreen.innerText = value;
+        } else {
+            currentScreen.innerText = Number.parseFloat(value).toExponential(2).toString();
+        }
+    }
+    function setScreenOperation(value) {
+        operationScreen.innerText = value;
+    }
+
+    function appendInputValue(current, additional) {
+        let res = current.toString() + additional.toString()
+        if (res.length <= 13) {
+            return res;
+        } else {
+            return current;
+        }
     }
 
     const SETTINGS = {
         EMPTY: "",
+        MEMORY: {
+            MCLEAR: "MC",
+            MREAD: "MR",
+            MSAVE: "MS",
+            MPLUS: "M+",
+            MMINUS: "M-"
+        },
         CONTROLS: {
             RESET: "reset",
             BACKSPACE: "backsp",
@@ -52,15 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         calc.A = currInput
                         result = calc.A
                     } else {
-                        calc.A += currInput
+                        calc.A = appendInputValue(calc.A, currInput)
                         result = calc.A
                     }
                 }
-                else if (calc.operation !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.B === "0")) {
+                else if (calc.operation !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.B === "0" || calc.B === "00")) {
                     calc.B = currInput
                     result = calc.B
                 } else if (calc.operation !== SETTINGS.EMPTY && calc.B !== SETTINGS.EMPTY) {
-                    calc.B += currInput
+                    calc.B = appendInputValue(calc.B, currInput)
                     result = calc.B
                 }
                 // FLOATINGS
@@ -71,10 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     calc.A = "0" + SETTINGS.CONTROLS.FLPOINT
                     result = calc.A
                 } else if (!calc.A.toString().includes(currInput) && calc.B === SETTINGS.EMPTY) {
-                    calc.A += currInput
+                    calc.A = appendInputValue(calc.A, currInput)
                     result = calc.A
                 } else if (calc.B !== SETTINGS.EMPTY && !calc.B.toString().includes(currInput)) {
-                    calc.B += currInput
+                    calc.B = appendInputValue(calc.B, currInput)
                     result = calc.B
                 }
                 // OPERATIONS
@@ -83,13 +108,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (calc.A !== SETTINGS.EMPTY && calc.B === SETTINGS.EMPTY) {
                     calc.operation = currInput
+                    setScreenOperation(currInput)
                 } else {
                     performCalc()
                     calc.B = SETTINGS.EMPTY
                     calc.operation = currInput
+                    setScreenOperation(currInput)
                 }
                 // EQUALS
             } else if (currInput === SETTINGS.CONTROLS.EQUALS) {
+                setScreenOperation("")
                 if (calc.B !== SETTINGS.EMPTY) {
                     calc.equalOn = true
                     performCalc();
@@ -141,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         console.log(`result = ${result} \t ${calc.A} ${calc.operation} ${calc.B}`)
         setScreenValue(result || "0")
+      //  calc.operation == "" ? setScreenOperation("") : setScreenOperation(calc.operation);
     }
 
     function performCalc() {
@@ -178,26 +207,9 @@ document.addEventListener("DOMContentLoaded", () => {
         calc.B = SETTINGS.EMPTY
         calc.equalOn = false
         setScreenValue("0")
+        setScreenOperation("")
     }
 
-
-
-
-    /*function snapshot(place) {
-      stateDisplay.innerText = 
-        "source --- " + place + 
-        "\nonScreen -- " + getFromScreen() + "\nfirst bin. operand -- " +
-        frstBinOperand + 
-        "\nsecond bin. operand -- " + scndBinOperand +
-        "\nbinary operation :: " + binaryOperation + "\n\ncurrCalcResult -- " + currCalcResult +
-        "\nisFloatPointOn -- " + isFloatPointOn;
-    
-      console.log("source -- " + place + "\nonScreen -- " + getFromScreen() + "\nfirst bin. operand -- " +
-        frstBinOperand + 
-        "\nsecond bin. operand -- " + scndBinOperand +
-        "\nbinary operation -- " + binaryOperation + "\n\ncurrCalcResult -- " + currCalcResult +
-        "\nisFloatPointOn -- " + isFloatPointOn);
-    }*/
 
     /*
     handleInput("9")

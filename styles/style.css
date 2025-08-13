@@ -1,68 +1,131 @@
-* {
+body {
   margin: 0;
   padding: 0;
-  font-family: "Calibri", "Verdana", "Tahoma", "Arial", sans-serif;
+  background: url("../images/wall.png") no-repeat fixed;
+  background-size: cover;
+  z-index: -2;
 }
 
-#mainContainer {
-  margin: 15px;
-  border: 15px solid #58c;
-  padding: 14px;
-  box-sizing: border-box;
-  width: 380px;
-  border-radius: 3px;
-  box-shadow: 3px 3px 10px #777;
-}
-
-#calcScreen {
-  margin: 0.3em 0.1em;
-  border: 5px solid #666;
-  padding: 0.4em 0.3em;
-  height: 1.5em;
-  font-weight: 400;
-  font-size: 1.9em;
-  text-align: right;
-  text-shadow: 1px 1px 3px #999;
-  color: #555;
-  background: linear-gradient(to bottom right, #ccc, #fff);
-  border-radius: 3px;
-}
-
-.buttonsRow {
-  display: flex;
-}
-.buttonsRow > div {
-  margin: 0.3em 0.2em;
-  border: 2px solid #888;
-  padding: 0.4em;
-  display: inline;
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-  color: #555;
-  background: #c3eaff;
-  box-sizing: border-box;
-  width: 25%;
-  height: 2.5em;
-  box-shadow: 2px 2px 4px #777;
-  border-radius: 10px;
-}
-.buttonsRow > div:active {
+div#main-wrapper {
   position: relative;
-  top: 3px;
+  margin: 20px auto 0;
+  width: 550px;
+  height: 550px;
+}
+div#main-wrapper img {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(10px 10px 10px #555);
+  z-index: -1;
+}
+div#main-wrapper div#output-container {
+  display: flex;
+  width: 100%;
+  height: 40%;
+  padding: 0;
+  justify-content: flex-end;
+}
+div#main-wrapper div#output-container output {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 90px;
+  margin: auto 25px 30px;
+  padding: 0 10px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+div#main-wrapper div#output-container output span#output-operation {
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  font-size: 12pt;
+  font-family: "Roboto Condensed", "Trebuchet MS", Helvetica, sans-serif;
+  white-space: nowrap;
+}
+div#main-wrapper div#output-container span#output-screen {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  max-width: calc(100% - 20px); /* keep inside padding */
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 auto 0 0;
+  padding: 0 5px 0 0;
+  text-align: right;
+  font-size: 55pt;
+  font-family: "Roboto Condensed", "Trebuchet MS", Helvetica, sans-serif;
+  letter-spacing: -2px;
+  text-shadow: 3px 3px 5px #555;
+}
+div#main-wrapper div#main-container {
+  display: flex;
+  height: auto;
+  padding: 20px;
+}
+div#main-wrapper div#main-container div#keyboard {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-rows: 45px auto auto auto auto;
+  grid-row-start: 1;
+  column-gap: 15px;
+  row-gap: 10px;
+  margin: auto;
+  justify-items: center;
+  align-items: end;
+}
+div#main-wrapper div#main-container div#keyboard button.btn-key {
+  display: inline;
+  width: 65px;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  background: #222;
+  color: #ff7;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 20pt;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-shadow: -1px -1px 1px #777;
+  box-shadow: 3px 2px 5px #222;
+}
+div#main-wrapper div#main-container div#keyboard button.btn-key:active {
+  position: relative;
+  top: 2px;
   left: 1px;
-  height: 2.4em;
-  box-shadow: -1px -1px 2px #777;
   box-shadow: 1px 1px 2px #777;
 }
-.buttonsRow .controls {
-  color: #fff;
-  background: #58c;
-  border-color: #666;
+div#main-wrapper div#main-container div#keyboard button.memory {
+  align-self: start;
+  height: 30px;
+  font-size: 14pt;
 }
-
-#backspace {
-  font-weight: normal;
+div#main-wrapper div#main-container div#keyboard button.digits {
+  height: 45px;
+  background: #777;
+  color: #fff;
+  font-size: 22pt;
+  text-shadow: -1px -1px 2px #222;
+}
+div#main-wrapper div#main-container div#keyboard button.controls {
+  height: 45px;
+}
+div#main-wrapper div#main-container div#keyboard button#mclear {
+  grid-column-start: 2;
+}
+div#main-wrapper div#main-container div#keyboard button#plus {
+  height: 100%;
+  grid-area: 4/5/6/6;
+}
+div#main-wrapper div#main-container div#keyboard button#reset {
+  background: #f56;
+  color: #fff;
+}
+div#main-wrapper div#main-container div#keyboard button#power2 sup {
+  font-size: 12pt;
 }
 
 /*# sourceMappingURL=style.css.map */
