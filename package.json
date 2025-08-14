@@ -1,5 +1,17 @@
 {
   "devDependencies": {
+    "concurrently": "^9.2.0",
+    "http-server": "^14.1.1",
     "sass": "^1.90.0"
+  },
+  "dependencies": {
+    "g": "^2.0.1",
+    "typescript": "^5.9.2"
+  },
+  "scripts": {
+    "start": "npx http-server dist -o",
+    "build": "concurrently \"npm run build:ts\" \"npm run build:sass\"",
+    "build:ts": "tsc --watch",
+    "build:sass": "sass src:dist --watch"
   }
 }

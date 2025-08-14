@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Ordinary Web Calculator</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="module" src="index.js"></script>
+</head>
+
+<body>
+  <div id="main-wrapper">
+    <img src="images/calculator.png" alt="calculator">
+    <div id="output-container">
+      <output>
+        <span id="output-screen">0</span>
+        <span id="output-operation"></span>
+        </output>
+    </div>
+    <div id="main-container">
+
+
+      <div id="keyboard">
+        <!-- Row 1 -->
+        <button class="btn-key memory" id="mclear" data-info="MC">MC</button>
+        <button class="btn-key memory" id="mread" ddata-info="MR">MR</button>
+        <button class="btn-key memory" id="msave" ddata-info="MS">MS</button>
+        <button class="btn-key memory" id="mplus" ddata-info="M+">M+</button>
+        <button class="btn-key memory" id="mminus" ddata-info="M-">M-</button>
+
+        <!-- Row 2 -->
+        <button class="btn-key controls" id="backsp" data-info="backsp">&#8592;</button>
+        <button class="btn-key digits" id="seven" data-info="7">7</button>
+        <button class="btn-key digits" id="eight" data-info="8">8</button>
+        <button class="btn-key digits" id="nine" data-info="9">9</button>
+        <button class="btn-key controls" id="modulus" data-info="%">%</button>
+        <button class="btn-key controls" id="power2" data-info="^2">x<sup>2</sup></button>
+
+        <!-- Row 3 -->
+        <button class="btn-key controls" id="negate" data-info="negate">&#177;</button>
+        <button class="btn-key digits" id="four" data-info="4">4</button>
+        <button class="btn-key digits" id="five" data-info="5">5</button>
+        <button class="btn-key digits" id="six" data-info="6">6</button>
+        <button class="btn-key controls" id="multiple" data-info="*">&#215;</button>
+        <button class="btn-key controls" id="divide" data-info="/">&#247;</button>
+
+        <!-- Row 4 -->
+        <button class="btn-key controls" id="sqrt" data-info="sqrt">&#8730;</button>
+        <button class="btn-key digits" id="one" data-info="1">1</button>
+        <button class="btn-key digits" id="two" data-info="2">2</button>
+        <button class="btn-key digits" id="three" data-info="3">3</button>
+        <button class="btn-key controls" id="plus" data-info="+">&#43;</button>
+        <button class="btn-key controls" id="minus" data-info="-">&#8722;</button>
+
+        <!-- Row 5 -->
+        <button class="btn-key controls" id="reset" data-info="reset">CE</button>
+        <button class="btn-key digits" id="zero" data-info="0">0</button>
+        <button class="btn-key digits" id="dzero" data-info="00">00</button>
+        <button class="btn-key digits" id="flpoint" data-info=".">&#8729;</button>
+        <button class="btn-key controls" id="equals" data-info="=">=</button>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
