@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Ordinary Web Calculator</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="module" src="index.js"></script>
 </head>
-
 <body>
   <div id="main-wrapper">
     <img src="images/calculator.png" alt="calculator">
@@ -15,18 +13,18 @@
       <output>
         <span id="output-screen">0</span>
         <span id="output-operation"></span>
+        <span id="output-memory"></span>
         </output>
     </div>
     <div id="main-container">
 
-
       <div id="keyboard">
         <!-- Row 1 -->
         <button class="btn-key memory" id="mclear" data-info="MC">MC</button>
-        <button class="btn-key memory" id="mread" ddata-info="MR">MR</button>
-        <button class="btn-key memory" id="msave" ddata-info="MS">MS</button>
-        <button class="btn-key memory" id="mplus" ddata-info="M+">M+</button>
-        <button class="btn-key memory" id="mminus" ddata-info="M-">M-</button>
+        <button class="btn-key memory" id="mread" data-info="MR">MR</button>
+        <button class="btn-key memory" id="msave" data-info="MS">MS</button>
+        <button class="btn-key memory" id="mplus" data-info="M+">M+</button>
+        <button class="btn-key memory" id="mminus" data-info="M-">M-</button>
 
         <!-- Row 2 -->
         <button class="btn-key controls" id="backsp" data-info="backsp">&#8592;</button>
@@ -60,9 +58,7 @@
         <button class="btn-key controls" id="equals" data-info="=">=</button>
 
       </div>
-
     </div>
   </div>
 </body>
-
 </html>

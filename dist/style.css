@@ -46,6 +46,15 @@ div#main-wrapper div#output-container output span#output-operation {
   font-family: "Roboto Condensed", "Trebuchet MS", Helvetica, sans-serif;
   white-space: nowrap;
 }
+div#main-wrapper div#output-container output span#output-memory {
+  position: absolute;
+  bottom: 5px;
+  left: 8px;
+  font-size: 10pt;
+  font-weight: bold;
+  font-family: "Roboto Condensed", "Trebuchet MS", Helvetica, sans-serif;
+  white-space: nowrap;
+}
 div#main-wrapper div#output-container span#output-screen {
   display: block;
   position: absolute;

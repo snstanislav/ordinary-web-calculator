@@ -61,6 +61,17 @@ div#main-wrapper {
         font-family: $output-font;
         white-space: nowrap;
       }
+      
+      span#output-memory {
+        //  border: 1px solid lightgreen;
+        position: absolute;
+        bottom: 5px;
+        left: 8px;
+        font-size: 10pt;
+        font-weight: bold;
+        font-family: $output-font;
+        white-space: nowrap;
+      }
     }
 
     span#output-screen {
