@@ -1,14 +1,4 @@
-$output-font: 'Roboto Condensed', 'Trebuchet MS', Helvetica, sans-serif;
-$key-font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-$box-sizing: border-box;
-$shadow-color: #555;
-$key-color-dark: #222;
-$key-color-white: #fff;
-$key-color-black: #000;
-$key-color-light: #ff7;
-$key-color-soft: #777;
-$key-color-extra: #f56;
-
+@use "global.scss" as global;
 
 body {
   margin: 0;
@@ -26,10 +16,10 @@ div#main-wrapper {
 
   img {
     position: absolute;
-    box-sizing: $box-sizing;
+    box-sizing: global.$box-sizing;
     width: 100%;
     height: 100%;
-    filter: drop-shadow(10px 10px 10px $shadow-color);
+    filter: drop-shadow(10px 10px 10px global.$shadow-color);
     z-index: -1;
   }
 
@@ -58,7 +48,7 @@ div#main-wrapper {
         left: 8px;
         font-size: 14pt;
         font-weight: bold;
-        font-family: $output-font;
+        font-family: global.$output-font;
         white-space: nowrap;
       }
       
@@ -69,7 +59,7 @@ div#main-wrapper {
         left: 8px;
         font-size: 10pt;
         font-weight: bold;
-        font-family: $output-font;
+        font-family: global.$output-font;
         white-space: nowrap;
       }
     }
@@ -87,9 +77,9 @@ div#main-wrapper {
       padding: 0 5px 0 0;
       text-align: right;
       font-size: 54pt;
-      font-family: $output-font;
+      font-family: global.$output-font;
       letter-spacing: -2px;
-      text-shadow: 3px 3px 5px $shadow-color;
+      text-shadow: 3px 3px 5px global.$shadow-color;
     }
 
   }
@@ -116,20 +106,20 @@ div#main-wrapper {
         height: auto;
         margin: 0;
         padding: 0;
-        background: $key-color-dark;
-        color: $key-color-light;
-        font-family: $key-font;
+        background: global.$key-color-dark;
+        color: global.$key-color-light;
+        font-family: global.$key-font;
         font-size: 20pt;
-        box-sizing: $box-sizing;
+        box-sizing: global.$box-sizing;
         border-radius: 5px;
-        text-shadow: -1px -1px 1px $key-color-soft;
-        box-shadow: 3px 2px 5px $key-color-dark;
+        text-shadow: -1px -1px 1px global.$key-color-soft;
+        box-shadow: 3px 2px 5px global.$key-color-dark;
 
         &:active {
           position: relative;
           top: 2px;
           left: 1px;
-          box-shadow: 1px 1px 2px $key-color-soft;
+          box-shadow: 1px 1px 2px global.$key-color-soft;
         }
       }
 
@@ -141,10 +131,10 @@ div#main-wrapper {
 
       button.digits {
         height: 45px;
-        background: $key-color-soft;
-        color: $key-color-white;
+        background: global.$key-color-soft;
+        color: global.$key-color-white;
         font-size: 22pt;
-        text-shadow: -1px -1px 2px $key-color-dark;
+        text-shadow: -1px -1px 2px global.$key-color-dark;
       }
 
       button.controls {
@@ -161,8 +151,8 @@ div#main-wrapper {
       }
 
       button#reset {
-        background: $key-color-extra;
-        color: $key-color-white;
+        background: global.$key-color-extra;
+        color: global.$key-color-white;
       }
 
       button#power2 {
