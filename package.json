@@ -19,7 +19,7 @@
     "dev:sass": "sass src/styles:dist/styles --watch",
     "clear": "rimraf dist",
     "build": "npm run clear && concurrently \"npm run build:public\" \"npm run build:ts\" \"npm run build:sass\"",
-    "build:public": "copyfiles -u 1 public/**/* dist",
+    "build:public": "copyfiles -u 1 \"public/**/*\" dist",
     "build:ts": "tsc",
     "build:sass": "sass src/styles:dist/styles",
     "test": "jest",
