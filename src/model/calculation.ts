@@ -1,4 +1,4 @@
-import { SETTINGS, type SingleCalculation } from "../settings";
+import { SETTINGS, type SingleCalculation } from "../settings.js";
 
 export function performCalc(calc: SingleCalculation) {
     switch (calc.operation) {

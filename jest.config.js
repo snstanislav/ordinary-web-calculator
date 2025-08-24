@@ -11,9 +11,11 @@ module.exports = {
   transform: {
     ...tsJestTransformCfg,
   },
-
   collectCoverageFrom: [
     "src/**/*.{ts,tsx}",
     "!src/**/*.d.ts"
   ],
+  moduleNameMapper: {
+    '^(.*)\\.js$': '$1',
+  },
 };
