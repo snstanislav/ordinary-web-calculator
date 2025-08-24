@@ -64,158 +64,199 @@ export function getController(output: OutputSet) {
     }
 
     function clearCalcStack() {
-        calc.A = SETTINGS.EMPTY
-        calc.operation = SETTINGS.EMPTY
-        calc.B = SETTINGS.EMPTY
-        calc.equalsProc = false
-        setOutputScreenValue(SETTINGS.ZERO, false)
-        setOutputOperationValue(SETTINGS.EMPTY)
+        calc.A = SETTINGS.EMPTY;
+        calc.operation = SETTINGS.EMPTY;
+        calc.B = SETTINGS.EMPTY;
+        calc.equalsProc = false;
+        setOutputScreenValue(SETTINGS.ZERO, false);
+        setOutputOperationValue(SETTINGS.EMPTY);
     }
 
     return function handleInput(event: MouseEvent) {
         let currInput = (event.target as HTMLButtonElement | null)?.dataset.info;
         if (currInput) {
-            if (currInput.includes(SETTINGS.MEMORY.M)) { // MEMORY BUTTONS
-                setOutputMemoryValue(SETTINGS.MEMORY.M);
-                switch (currInput) {
-                    case SETTINGS.MEMORY.MCLEAR:
-                        memory = 0;
-                        setOutputMemoryValue(SETTINGS.EMPTY);
-                        break;
-                    case SETTINGS.MEMORY.MREAD:
-                        debugger;
-                        if (memory === 0) setOutputMemoryValue(SETTINGS.EMPTY);
-                        setOutputScreenValue(memory.toString(), false);
-                        break;
-                    case SETTINGS.MEMORY.MSAVE:
-                        memory = Number.parseFloat(getOutputScreenValue());
-                        break;
-                    case SETTINGS.MEMORY.MPLUS:
-                        memory += Number.parseFloat(getOutputScreenValue());
-                        break;
-                    case SETTINGS.MEMORY.MMINUS:
-                        memory -= Number.parseFloat(getOutputScreenValue());
-                        break;
-                    default:
-                        memory = 0;
-                        break;
-                }
-            } else
-                if (digitsRegex.test(currInput)) { // DIGITS -- USER INPUT
-                    if (calc.equalsProc === true) clearCalcStack();
-                    if (calc.operation === SETTINGS.EMPTY) {
-                        if (calc.A === SETTINGS.EMPTY || calc.A === SETTINGS.ZERO) {
-                            if (currInput !== SETTINGS.DZERO) {
-                                calc.A = currInput
-                                setOutputScreenValue(calc.A, false);
-                            }
-                        } else {
-                            calc.A = appendInputValue(calc.A, currInput)
-                            setOutputScreenValue(calc.A, false);
-                        }
-                    }
-                    else if (calc.operation !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.B === SETTINGS.ZERO)) {
-                        if (currInput !== SETTINGS.DZERO) {
-                            calc.B = currInput
-                            setOutputScreenValue(calc.B, false);
-                        }
-                    } else if (calc.operation !== SETTINGS.EMPTY && calc.B !== SETTINGS.EMPTY) {
-                        calc.B = appendInputValue(calc.B, currInput)
-                        setOutputScreenValue(calc.B, false);
-                    }
-                } else if (currInput === SETTINGS.CONTROLS.FLPOINT) { // F.POINT -- USER INPUT
-                    if (calc.equalsProc === true) calc.B = SETTINGS.EMPTY;
-                    if (calc.A === SETTINGS.EMPTY) {
-                        calc.A = SETTINGS.ZERO + SETTINGS.CONTROLS.FLPOINT
-                        setOutputScreenValue(calc.A, false);
-                    } else if (!calc.A.includes(currInput) && calc.B === SETTINGS.EMPTY) {
-                        calc.A = appendInputValue(calc.A, currInput)
-                        setOutputScreenValue(calc.A, false);
-                    } else if (calc.B !== SETTINGS.EMPTY && !calc.B.includes(currInput)) {
-                        calc.B = appendInputValue(calc.B, currInput)
-                        setOutputScreenValue(calc.B, false);
-                    }
-                } else if (operationsRegex.test(currInput)) { // OPERATIONS
-                    if (calc.equalsProc === true) {
-                        calc.B = SETTINGS.EMPTY;
-                        calc.equalsProc = false;
-                    }
-                    if (calc.A === SETTINGS.EMPTY) {
-                        calc.A = SETTINGS.ZERO;
-                    }
-                    if (calc.A !== SETTINGS.EMPTY && calc.B === SETTINGS.EMPTY) {
-                        calc.operation = currInput
-                        setOutputOperationValue(currInput)
-                    } else {
-                        performCalc(calc)
-
-                        setOutputScreenValue(calc.A, true);
-
-                        calc.B = SETTINGS.EMPTY
-                        calc.operation = currInput
-                        setOutputOperationValue(currInput)
-                    }
-                } else if (currInput === SETTINGS.CONTROLS.EQUALS) { // EQUALS
-                    if (calc.B !== SETTINGS.EMPTY) {
-                        setOutputOperationValue(SETTINGS.EMPTY)
-                        calc.equalsProc = true
-                        performCalc(calc);
-
-                        setOutputScreenValue(calc.A, true);
-                    } else if (calc.A !== SETTINGS.EMPTY && (calc.operation === SETTINGS.CONTROLS.SQROOT || calc.operation === SETTINGS.CONTROLS.POWER2)) {
-                        setOutputOperationValue(SETTINGS.EMPTY)
-                        calc.equalsProc = true
-                        performCalc(calc);
-
-                        setOutputScreenValue(calc.A, true);
-                    }
-                } else if (currInput === SETTINGS.CONTROLS.POWER2) { // POWER
-                    if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
-                        setOutputOperationValue(currInput)
-                        calc.operation = currInput
-                        performCalc(calc);
-
-                        setOutputScreenValue(calc.A, true);
-                    }
-
-                } else if (currInput === SETTINGS.CONTROLS.SQROOT) { // SQUARE ROOT
-                    if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
-                        setOutputOperationValue(currInput)
-                        calc.operation = currInput
-                        performCalc(calc);
-
-                        setOutputScreenValue(calc.A, true);
-                    }
-                } else if (currInput === SETTINGS.CONTROLS.NEGATE) { // NEGATE
-                    if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
-                        calc.A = (-Number.parseFloat(calc.A)).toString()
-                        setOutputScreenValue(calc.A, false);
-                    } if (calc.B !== SETTINGS.EMPTY && calc.equalsProc === false) {
-                        calc.B = (-Number.parseFloat(calc.B)).toString()
-                        setOutputScreenValue(calc.B, false);
-                    }
-                } else if (currInput === SETTINGS.CONTROLS.BACKSPACE) { // BACKSPACE
-                    if (calc.A !== SETTINGS.EMPTY && calc.operation === SETTINGS.EMPTY) {
-                        if (calc.A.length <= 1) {
-                            calc.A = SETTINGS.ZERO
-                        } else {
-                            calc.A = calc.A.slice(0, calc.A.length - 1)
-                        }
-                        setOutputScreenValue(calc.A, false);
-                    } else if (calc.B !== SETTINGS.EMPTY && calc.equalsProc === false) {
-                        if (calc.B.length <= 1) {
-                            calc.B = SETTINGS.ZERO
-                        } else {
-                            calc.B = calc.B.slice(0, calc.B.length - 1)
-                        }
-                        setOutputScreenValue(calc.B, false);
-                    }
-                } else if (currInput === SETTINGS.CONTROLS.RESET) { // RESET
-                    setOutputScreenValue(SETTINGS.EMPTY, false);
-                    clearCalcStack()
-                }
+            if (currInput.includes(SETTINGS.MEMORY.M)) {
+                handleMemory(currInput);
+            } else if (digitsRegex.test(currInput)) { // DIGITS
+                handleDigits(currInput);
+            } else if (operationsRegex.test(currInput)) { // OPERATIONS
+                handleOperations(currInput);
+            } else if (currInput === SETTINGS.CONTROLS.FLPOINT) {
+                handleFlPoint();
+            } else if (currInput === SETTINGS.CONTROLS.EQUALS) {
+                handleEquals();
+            } else if (currInput === SETTINGS.CONTROLS.POWER2) {
+                handlePower2();
+            } else if (currInput === SETTINGS.CONTROLS.SQROOT) {
+                handleSqrt();
+            } else if (currInput === SETTINGS.CONTROLS.NEGATE) {
+                handleNegate();
+            } else if (currInput === SETTINGS.CONTROLS.BACKSPACE) {
+                handleBackspace();
+            } else if (currInput === SETTINGS.CONTROLS.RESET) {
+                handleReset();
+            }
         }
 
         console.log(`Memory: ${memory}\t screen: ${getOutputScreenValue()} \n[${calc.A}, ${calc.operation}, ${calc.B}, ${calc.equalsProc}]`)
+    }
+
+    function handleMemory(currInput: string) {
+        setOutputMemoryValue(SETTINGS.MEMORY.M);
+        setOutputOperationValue(SETTINGS.EMPTY);
+        switch (currInput) {
+            case SETTINGS.MEMORY.MCLEAR:
+                memory = 0;
+                setOutputMemoryValue(SETTINGS.EMPTY);
+                break;
+            case SETTINGS.MEMORY.MREAD:
+                debugger;
+                if (memory === 0) setOutputMemoryValue(SETTINGS.EMPTY);
+                setOutputScreenValue(memory.toString(), false);
+                break;
+            case SETTINGS.MEMORY.MSAVE:
+                memory = Number.parseFloat(getOutputScreenValue());
+                break;
+            case SETTINGS.MEMORY.MPLUS:
+                memory += Number.parseFloat(getOutputScreenValue());
+                break;
+            case SETTINGS.MEMORY.MMINUS:
+                memory -= Number.parseFloat(getOutputScreenValue());
+                break;
+            default:
+                memory = 0;
+                break;
+        }
+    }
+
+    function handleDigits(currInput: string) {
+        if (calc.equalsProc === true) clearCalcStack();
+        if (calc.operation === SETTINGS.EMPTY) {
+            if (calc.A === SETTINGS.EMPTY || calc.A === SETTINGS.ZERO) {
+                if (currInput !== SETTINGS.DZERO) {
+                    calc.A = currInput
+                    setOutputScreenValue(calc.A, false);
+                }
+            } else {
+                calc.A = appendInputValue(calc.A, currInput)
+                setOutputScreenValue(calc.A, false);
+            }
+        }
+        else if (calc.operation !== SETTINGS.EMPTY
+            && (calc.B === SETTINGS.EMPTY || calc.B === SETTINGS.ZERO)) {
+            if (currInput !== SETTINGS.DZERO) {
+                calc.B = currInput;
+                setOutputScreenValue(calc.B, false);
+            }
+        } else if (calc.operation !== SETTINGS.EMPTY && calc.B !== SETTINGS.EMPTY) {
+            calc.B = appendInputValue(calc.B, currInput)
+            setOutputScreenValue(calc.B, false);
+        }
+    }
+
+    function handleOperations(currInput: string) {
+        if (calc.equalsProc === true) {
+            calc.B = SETTINGS.EMPTY;
+            calc.equalsProc = false;
+        }
+        if (calc.A === SETTINGS.EMPTY) {
+            calc.A = SETTINGS.ZERO;
+        }
+        if (calc.A !== SETTINGS.EMPTY && calc.B === SETTINGS.EMPTY) {
+            calc.operation = currInput
+            setOutputOperationValue(currInput);
+        } else {
+            performCalc(calc);
+
+            setOutputScreenValue(calc.A, true);
+
+            calc.B = SETTINGS.EMPTY;
+            calc.operation = currInput;
+            setOutputOperationValue(currInput);
+        }
+    }
+
+    function handleFlPoint() {
+        if (calc.equalsProc === true) calc.B = SETTINGS.EMPTY;
+        if (calc.A === SETTINGS.EMPTY) {
+            calc.A = SETTINGS.ZERO + SETTINGS.CONTROLS.FLPOINT;
+            setOutputScreenValue(calc.A, false);
+        } else if (!calc.A.includes(SETTINGS.CONTROLS.FLPOINT) 
+            && calc.B === SETTINGS.EMPTY) {
+            calc.A = appendInputValue(calc.A, SETTINGS.CONTROLS.FLPOINT);
+            setOutputScreenValue(calc.A, false);
+        } else if (calc.B !== SETTINGS.EMPTY && !calc.B.includes(SETTINGS.CONTROLS.FLPOINT)) {
+            calc.B = appendInputValue(calc.B, SETTINGS.CONTROLS.FLPOINT);
+            setOutputScreenValue(calc.B, false);
+        }
+    }
+
+    function handleEquals() {
+        if (calc.B !== SETTINGS.EMPTY) {
+            setOutputOperationValue(SETTINGS.EMPTY);
+            calc.equalsProc = true;
+            performCalc(calc);
+
+            setOutputScreenValue(calc.A, true);
+        } else if (calc.A !== SETTINGS.EMPTY && (calc.operation === SETTINGS.CONTROLS.SQROOT || calc.operation === SETTINGS.CONTROLS.POWER2)) {
+            setOutputOperationValue(SETTINGS.EMPTY);
+            calc.equalsProc = true;
+            performCalc(calc);
+
+            setOutputScreenValue(calc.A, true);
+        }
+    }
+
+    function handlePower2() {
+        if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
+            setOutputOperationValue(SETTINGS.CONTROLS.POWER2)
+            calc.operation = SETTINGS.CONTROLS.POWER2;
+            performCalc(calc);
+
+            setOutputScreenValue(calc.A, true);
+        }
+    }
+
+    function handleSqrt() {
+        if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
+            setOutputOperationValue(SETTINGS.CONTROLS.SQROOT)
+            calc.operation = SETTINGS.CONTROLS.SQROOT;
+            performCalc(calc);
+
+            setOutputScreenValue(calc.A, true);
+        }
+    }
+
+    function handleNegate() {
+        if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
+            calc.A = (-Number.parseFloat(calc.A)).toString();
+            setOutputScreenValue(calc.A, false);
+        } if (calc.B !== SETTINGS.EMPTY && calc.equalsProc === false) {
+            calc.B = (-Number.parseFloat(calc.B)).toString();
+            setOutputScreenValue(calc.B, false);
+        }
+    }
+
+    function handleBackspace() {
+        if (calc.A !== SETTINGS.EMPTY && calc.operation === SETTINGS.EMPTY) {
+            if (calc.A.length <= 1) {
+                calc.A = SETTINGS.ZERO;
+            } else {
+                calc.A = calc.A.slice(0, calc.A.length - 1);
+            }
+            setOutputScreenValue(calc.A, false);
+        } else if (calc.B !== SETTINGS.EMPTY && calc.equalsProc === false) {
+            if (calc.B.length <= 1) {
+                calc.B = SETTINGS.ZERO;
+            } else {
+                calc.B = calc.B.slice(0, calc.B.length - 1);
+            }
+            setOutputScreenValue(calc.B, false);
+        }
+    }
+
+    function handleReset() {
+        setOutputScreenValue(SETTINGS.EMPTY, false);
+        clearCalcStack();
     }
 }

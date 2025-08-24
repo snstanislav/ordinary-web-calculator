@@ -1,4 +1,4 @@
-import { SETTINGS, type SingleCalculation } from "../settings.js";
+import { SETTINGS, type SingleCalculation } from "../settings";
 
 export function performCalc(calc: SingleCalculation) {
     switch (calc.operation) {
@@ -19,11 +19,11 @@ export function performCalc(calc: SingleCalculation) {
             break;
         case SETTINGS.CONTROLS.POWER2:
             calc.A = (Number.parseFloat(calc.A) * Number.parseFloat(calc.A)).toString();
-            break
+            break;
         case SETTINGS.CONTROLS.SQROOT:
             calc.A = Math.sqrt(Number.parseFloat(calc.A)).toString();
-            break
+            break;
         default:
-            throw Error(`Operation <${calc.operation}> is not valid`)
+            throw Error(`Operation <${calc.operation}> is not valid`);
     }
 }

@@ -1,5 +1,7 @@
-import { type OutputSet } from "../settings.js";
+import { SETTINGS, type OutputSet } from "../settings.js";
 import { getController } from "../controller/controller.js";
+
+const appVersion = "v.2.0";
 
 document.addEventListener("DOMContentLoaded", () => {
     const output: OutputSet = {
@@ -8,12 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
         otputMemory: document.getElementById("output-memory")
     }
 
+    const versionLabel = document.getElementById("version-label");
+    if (versionLabel) {
+        versionLabel.innerText = appVersion;
+    }
+
     if (!output.outputScreen || !output.outputOperation || !output.otputMemory) {
         console.error("Output element not found!");
         return;
     } else {
+        output.outputScreen.innerText = SETTINGS.ZERO;
+
         const handleInput = getController(output);
-        
+
         const buttonsCollection = document.querySelectorAll(".btn-key");
         for (let elem of buttonsCollection) {
             (elem as HTMLButtonElement).addEventListener("click", handleInput);

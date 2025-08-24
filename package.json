@@ -1,12 +1,15 @@
 {
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "concurrently": "^9.2.0",
-    "http-server": "^14.1.1",
+    "copyfiles": "^2.4.1",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
     "rimraf": "^6.0.1",
-    "sass": "^1.90.0"
+    "sass": "^1.90.0",
+    "ts-jest": "^29.4.1"
   },
   "dependencies": {
-    "g": "^2.0.1",
     "typescript": "^5.9.2"
   },
   "scripts": {
@@ -16,8 +19,11 @@
     "dev:sass": "sass src/styles:dist/styles --watch",
     "clear": "rimraf dist",
     "build": "npm run clear && concurrently \"npm run build:public\" \"npm run build:ts\" \"npm run build:sass\"",
-    "build:public": "cp -r public dist",
+    "build:public": "copyfiles -u 1 public/**/* dist",
     "build:ts": "tsc",
-    "build:sass": "sass src/styles:dist/styles"
+    "build:sass": "sass src/styles:dist/styles",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cover": "jest --coverage"
   }
 }
