@@ -1,22 +1,58 @@
+/**
+ * @file controller.ts
+ * @description UI controller module for managing calculator input, state transitions, and display updates. 
+ * Handles user interactions, memory operations, and delegates arithmetic logic to the calculation model.
+ * @author Stanislav Snisar
+ * @version 1.1.0
+ * @created 08.2025
+ * @module controller/controller
+ */
+
 import { SETTINGS, digitsRegex, operationsRegex, type SingleCalculation, type OutputSet } from "../settings.js";
 import { performCalc } from "../model/calculation.js";
 
+/**
+ * Initializes and returns the input handler for calculator UI interactions.
+ *
+ * @param {OutputSet} output - References to UI output elements.
+ * @returns {(event: MouseEvent) => void} Event handler for button clicks.
+ */
 export function getController(output: OutputSet) {
     // UI access
     let outputScreen = output.outputScreen;
     let outputOperation = output.outputOperation;
     let otputMemory = output.otputMemory;
 
-    // state vars
+    /**
+    * State variable. 
+    * Stores the current memory value used in memory operations (M+, M-, MR, etc.).
+    * @type {number}
+    */
     let memory: number = 0;
+
+    /**
+    * State variable. 
+    * Tracks the current calculation state, including operands, selected operation, and whether the result has already been computed.
+    */
     const calc: SingleCalculation = { A: SETTINGS.EMPTY, operation: SETTINGS.EMPTY, B: SETTINGS.EMPTY, equalsProc: false }
 
+    /**
+    * Returns the current value displayed on the calculator screen.
+    * @returns {string}
+    */
     function getOutputScreenValue(): string {
         console.log(outputScreen?.innerText)
         return outputScreen?.innerText || SETTINGS.ZERO;
     }
 
-    // 1 of 13 symbol places is reserved for "-" by negate operation
+    /**
+    * Updates the calculator screen with a new value.
+    * 
+    * 1 of 13 symbol places is reserved for "-" by negate operation
+    * 
+    * @param {string} value - Value to display.
+    * @param {boolean} isCalcResult - Whether the value is a calculation result.
+    */
     function setOutputScreenValue(value: string, isCalcResult: boolean) {
         if (outputScreen) {
             if (value.length < 13) {
@@ -37,6 +73,10 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Updates the operation display with a formatted symbol.
+    * @param {string} value - Operation identifier.
+    */
     function setOutputOperationValue(value: string) {
         if (outputOperation) {
             value = value === SETTINGS.CONTROLS.MULTIPLY ? "\u00D7" :
@@ -48,12 +88,22 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Updates the memory indicator display.
+    * @param {string} value - Memory label or empty string.
+    */
     function setOutputMemoryValue(value: string) {
         if (otputMemory) {
             otputMemory.innerText = value || SETTINGS.EMPTY;
         }
     }
 
+    /**
+    * Appends a digit or symbol to the current input value.
+    * @param {string} current - Existing input.
+    * @param {string} additional - New character to append.
+    * @returns {string}
+    */
     function appendInputValue(current: string, additional: string): string {
         let res = current + additional;
         if (res.length < 13) {
@@ -63,6 +113,9 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Clears the current calculation state and resets the display.
+    */
     function clearCalcStack() {
         calc.A = SETTINGS.EMPTY;
         calc.operation = SETTINGS.EMPTY;
@@ -72,6 +125,14 @@ export function getController(output: OutputSet) {
         setOutputOperationValue(SETTINGS.EMPTY);
     }
 
+    /**
+    * Handles calculator button input events and dispatches them to the appropriate logic handler.
+    *
+    * Determines the type of input (digit, operation, memory control, etc.) based on the button's `data-info` attribute,
+    * and routes it to the corresponding handler function.
+    *
+    * @param {MouseEvent} event - The click event triggered by a calculator button.
+    */
     return function handleInput(event: MouseEvent) {
         let currInput = (event.target as HTMLButtonElement | null)?.dataset.info;
         if (currInput) {
@@ -101,6 +162,10 @@ export function getController(output: OutputSet) {
         console.log(`Memory: ${memory}\t screen: ${getOutputScreenValue()} \n[${calc.A}, ${calc.operation}, ${calc.B}, ${calc.equalsProc}]`)
     }
 
+    /**
+    * Handles memory-related button inputs (MC, MR, M+, M-, MS).
+    * @param {string} currInput - Memory control identifier.
+    */
     function handleMemory(currInput: string) {
         setOutputMemoryValue(SETTINGS.MEMORY.M);
         setOutputOperationValue(SETTINGS.EMPTY);
@@ -129,6 +194,10 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Handles digit button inputs and updates operands.
+    * @param {string} currInput - Digit character.
+    */
     function handleDigits(currInput: string) {
         if (calc.equalsProc === true) clearCalcStack();
         if (calc.operation === SETTINGS.EMPTY) {
@@ -154,6 +223,10 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Handles arithmetic operation inputs and triggers calculation if needed.
+    * @param {string} currInput - Operation identifier.
+    */
     function handleOperations(currInput: string) {
         if (calc.equalsProc === true) {
             calc.B = SETTINGS.EMPTY;
@@ -176,12 +249,15 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Handles floating point input (".") for A or B.
+    */
     function handleFlPoint() {
         if (calc.equalsProc === true) calc.B = SETTINGS.EMPTY;
         if (calc.A === SETTINGS.EMPTY) {
             calc.A = SETTINGS.ZERO + SETTINGS.CONTROLS.FLPOINT;
             setOutputScreenValue(calc.A, false);
-        } else if (!calc.A.includes(SETTINGS.CONTROLS.FLPOINT) 
+        } else if (!calc.A.includes(SETTINGS.CONTROLS.FLPOINT)
             && calc.B === SETTINGS.EMPTY) {
             calc.A = appendInputValue(calc.A, SETTINGS.CONTROLS.FLPOINT);
             setOutputScreenValue(calc.A, false);
@@ -191,6 +267,9 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Executes the calculation when "=" is pressed.
+    */
     function handleEquals() {
         if (calc.B !== SETTINGS.EMPTY) {
             setOutputOperationValue(SETTINGS.EMPTY);
@@ -207,6 +286,9 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Performs squaring operation on A.
+    */
     function handlePower2() {
         if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
             setOutputOperationValue(SETTINGS.CONTROLS.POWER2)
@@ -217,6 +299,9 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Performs square root operation on A.
+    */
     function handleSqrt() {
         if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
             setOutputOperationValue(SETTINGS.CONTROLS.SQROOT)
@@ -227,6 +312,9 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Negates the current operand (A or B).
+    */
     function handleNegate() {
         if (calc.A !== SETTINGS.EMPTY && (calc.B === SETTINGS.EMPTY || calc.equalsProc === true)) {
             calc.A = (-Number.parseFloat(calc.A)).toString();
@@ -237,6 +325,9 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Removes the last character from A or B.
+    */
     function handleBackspace() {
         if (calc.A !== SETTINGS.EMPTY && calc.operation === SETTINGS.EMPTY) {
             if (calc.A.length <= 1) {
@@ -255,6 +346,9 @@ export function getController(output: OutputSet) {
         }
     }
 
+    /**
+    * Resets the calculator state and clears the display.
+    */
     function handleReset() {
         setOutputScreenValue(SETTINGS.EMPTY, false);
         clearCalcStack();

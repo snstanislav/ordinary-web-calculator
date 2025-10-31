@@ -1,8 +1,20 @@
+/**
+ * @file index.ts
+ * @description Entry point for initializing calculator UI, binding event listeners, and displaying app version.
+ * @author Stanislav Snisar
+ * @version 1.1.0
+ * @created 08.2025
+ * @module view/index
+ */
+
 import { SETTINGS, type OutputSet } from "../settings.js";
 import { getController } from "../controller/controller.js";
 
 const appVersion = "v.2.0";
 
+/**
+ * Initializes calculator output elements, sets version label, and binds input handlers to UI buttons.
+ */
 document.addEventListener("DOMContentLoaded", () => {
     const output: OutputSet = {
         outputScreen: document.getElementById("output-screen"),
@@ -29,73 +41,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-
-/*
-handleInput("9")
-handleInput("0")
-handleInput(".")
-handleInput(".")
-handleInput("4")
-handleInput("0")
-handleInput(".")
-handleInput("=")
-handleInput(".")
-handleInput("0")
-handleInput("0")
-handleInput("0")
-handleInput("4")
-handleInput("4")
-handleInput("4")
-handleInput("/")
-handleInput("2")
-handleInput("+")
-handleInput(".")
-handleInput(".")
-handleInput("+")
-handleInput("*")
-handleInput("5")
-handleInput("+")
-handleInput("+")
-handleInput("2")
-handleInput("0")
-handleInput("7")
-handleInput("3")
-handleInput("6")
-handleInput("backsp")
-handleInput("backsp")
-handleInput("6")
-handleInput("3")
-handleInput("4")
-handleInput("+")
-console.log(calc)
-handleInput("negate")
-handleInput("-")
-handleInput("1")
-handleInput("0")
-handleInput("0")
-handleInput("=")
-handleInput("8")
-handleInput("7")
-handleInput("6")
-console.log(calc)
-handleInput("backsp")
-handleInput("backsp")
-handleInput("backsp")
-console.log(calc)
-console.log(calc)
-handleInput("backsp")
-handleInput("backsp")
-console.log(calc)
-handleInput("5")
-console.log(calc)
-console.log(calc)
-handleInput("7")
-console.log(calc)
-handleInput("4")
-console.log(calc)
-handleInput("backsp")
-handleInput("backsp")
-handleInput("=")
-handleInput("4")
-handleInput("4")
-*/
