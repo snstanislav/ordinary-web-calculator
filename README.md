@@ -14,7 +14,7 @@ A lightweight web application that emulates the behavior of a traditional office
 - **TypeScript** 
 - **HTML5 & SASS** 
 
-## 📁 Project Structure 
+## Project Structure 
 
 ```
 ├── model/
@@ -26,7 +26,7 @@ A lightweight web application that emulates the behavior of a traditional office
 ├── settings.ts              # Constants, regex patterns, and shared types
 ```
 
-## 📦 Getting Started
+## Getting Started
 
 Clone the repo, install dependencies, and launch the app:
 ```bash 
@@ -34,7 +34,8 @@ git clone https://github.com/your-username/ordinary-web-calculator.git
 cd ordinary-web-calculator
 npm install
 npm start
+```
 
-## 📄 License
+## License
 
 This project is open-source and available under the MIT License.
