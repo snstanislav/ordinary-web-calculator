@@ -2,6 +2,8 @@
 
 A lightweight web application that emulates the behavior of a traditional office calculator. Built with MVC architecture and focused on intuitive user interaction. 
 
+[Live Demo](https://snstanislav.github.io/ordinary-web-calculator/)
+
 ## Features 
 
 - Supports basic operations: addition, subtraction, multiplication, division, modulus 
